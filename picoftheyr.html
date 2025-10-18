@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pictures of the Year</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            background-image: url('https://wallpaperaccess.com/full/1347419.jpg'); /* Updated Background Image */
+            background-size: cover;
+            background-position: center;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            font-family: Arial, sans-serif;
+        }
+        h1 {
+            font-size: 3em;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+        }
+        #imageInput {
+            display: none; /* Hide the default file input */
+        }
+        .file-upload {
+            background-color: rgba(255, 255, 255, 0.2);
+            border: 2px solid white;
+            border-radius: 8px;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 1.2em;
+            transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+        }
+        .file-upload:hover {
+            background-color: rgba(255, 255, 255, 0.4);
+            transform: scale(1.05);
+            box-shadow: 
+                0 0 20px 5px rgba(255, 0, 0, 0.8), 
+                0 0 20px 5px rgba(0, 0, 255, 0.8),
+                0 0 40px 10px rgba(255, 0, 0, 0.5),
+                0 0 40px 10px rgba(0, 0, 255, 0.5);
+        }
+        #imagePreview {
+            max-width: 80%;
+            border: 2px solid white;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+        .download-button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 1.2em;
+            border: 2px solid black; /* Black border */
+            border-radius: 8px;
+            background-color: black; /* Black background */
+            color: red; /* Red text */
+            cursor: pointer;
+            display: none; /* Hidden by default */
+            transition: background-color 0.3s;
+        }
+        .download-button:hover {
+            background-color: rgba(200, 0, 0, 0.8); /* Darker red on hover */
+        }
+    </style>
+</head>
+<body>
+    <h1>Pictures of the Year</h1> <!-- Corrected Heading -->
+    <label for="imageInput" class="file-upload">Choose File</label>
+    <input type="file" id="imageInput" accept="image/*">
+    <img id="imagePreview" src="" alt="Image Preview" hidden>
+    <a id="downloadLink" class="download-button" download>Download Photo</a>
+
+    <script>
+        const imageInput = document.getElementById('imageInput');
+        const imagePreview = document.getElementById('imagePreview');
+        const downloadLink = document.getElementById('downloadLink');
+
+        imageInput.addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    imagePreview.src = e.target.result;
+                    imagePreview.hidden = false;
+
+                    // Set the download link
+                    downloadLink.href = e.target.result;
+                    downloadLink.style.display = 'inline'; // Show the download button
+                }
+                reader.readAsDataURL(file);
+            }
+        });
+    </script>
+</body>
+</html>
